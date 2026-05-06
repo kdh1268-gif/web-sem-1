@@ -36,7 +36,7 @@ export default function Preloader() {
 
     for (let i = 1; i <= PRELOAD_COUNT; i++) {
       const img = new window.Image();
-      img.src = `/frames/perfume_${i.toString().padStart(3, '0')}.png`;
+      img.src = `/frames/perfume_${i.toString().padStart(3, '0')}.avif`;
       img.onload = incrementLoad;
       img.onerror = incrementLoad; // Move forward even on error
     }

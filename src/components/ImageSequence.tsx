@@ -17,7 +17,7 @@ export default function ImageSequence() {
     const images: HTMLImageElement[] = [];
     for (let i = 1; i <= FRAME_COUNT; i++) {
       const img = new Image();
-      img.src = `/frames/perfume_${i.toString().padStart(3, '0')}.png`;
+      img.src = `/frames/perfume_${i.toString().padStart(3, '0')}.avif`;
       images.push(img);
     }
 
