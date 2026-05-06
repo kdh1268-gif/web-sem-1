@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fdfdfd;
+  --foreground: #1a1a1a;
+  --onyx-gold: #cfb276;
+  --onyx-gold-light: #e5cd97;
+  --onyx-gold-dark: #a98a4a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-gold: var(--onyx-gold);
+  --color-gold-light: var(--onyx-gold-light);
+  --color-gold-dark: var(--onyx-gold-dark);
+  
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair), var(--font-noto-serif-kr), serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+}
+
+/* Hide scrollbar for a cleaner look since we will use custom scroll / Lenis */
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
