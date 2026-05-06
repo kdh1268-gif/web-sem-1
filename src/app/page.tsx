@@ -89,7 +89,7 @@ export default function Home() {
         >
           <ImageSequence />
 
-        <div ref={text1Ref} className="absolute text-center md:text-left w-full md:w-[40%] md:left-[10%] lg:left-[15%] px-6 md:px-0 text-foreground">
+        <div ref={text1Ref} className="absolute text-center md:text-left w-full md:w-[40%] top-[20%] md:top-auto md:left-[10%] lg:left-[15%] px-6 md:px-0 text-foreground">
           <div ref={text1InnerRef} className="opacity-0">
             <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl mb-8 tracking-wide font-light">
               {t.title1}
@@ -100,7 +100,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div ref={text2Ref} className="absolute opacity-0 translate-y-12 text-center md:text-left w-full md:w-[40%] md:left-[10%] lg:left-[15%] px-6 md:px-0 text-foreground">
+        <div ref={text2Ref} className="absolute opacity-0 translate-y-12 text-center md:text-left w-full md:w-[40%] top-[20%] md:top-auto md:left-[10%] lg:left-[15%] px-6 md:px-0 text-foreground">
           <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl mb-8 tracking-wide font-light text-gold-dark">
             {t.title2}
           </h2>
@@ -109,7 +109,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div ref={text3Ref} className="absolute opacity-0 translate-y-12 text-center md:text-left w-full md:w-[40%] md:left-[10%] lg:left-[15%] px-6 md:px-0 text-foreground flex flex-col items-center md:items-start">
+        <div ref={text3Ref} className="absolute opacity-0 translate-y-12 text-center md:text-left w-full md:w-[40%] top-[20%] md:top-auto md:left-[10%] lg:left-[15%] px-6 md:px-0 text-foreground flex flex-col items-center md:items-start">
           <div className="relative w-48 md:w-72 lg:w-80 h-16 md:h-24 lg:h-32 mb-10">
             <Image 
               src="/images/logo.png" 

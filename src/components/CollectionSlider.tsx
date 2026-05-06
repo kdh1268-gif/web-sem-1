@@ -38,10 +38,10 @@ export default function CollectionSlider() {
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {t.items.map((item, index) => (
-          <div key={index} className="snap-center shrink-0 w-[80vw] md:w-[30vw] max-w-[400px] flex flex-col items-center group">
-            <div className="relative w-full aspect-[3/4] bg-[#f9f9f9] overflow-hidden mb-8 flex items-center justify-center transition-transform duration-700 group-hover:-translate-y-4 shadow-sm group-hover:shadow-xl group-hover:shadow-gold-dark/10">
+          <div key={index} className="snap-center shrink-0 w-[65vw] md:w-[30vw] max-w-[400px] flex flex-col items-center group">
+            <div className="relative w-full aspect-[4/5] md:aspect-[3/4] bg-[#fdfdfd] overflow-hidden mb-6 md:mb-8 flex items-center justify-center transition-transform duration-700 group-hover:-translate-y-4 shadow-sm group-hover:shadow-xl group-hover:shadow-gold-dark/10">
               {/* Product Image Placeholder - Replace with actual bottle images */}
-              <div className="w-[65%] h-[75%] relative z-10 transition-transform duration-700 group-hover:scale-105">
+              <div className="w-[75%] h-[80%] relative z-10 transition-transform duration-700 group-hover:scale-105">
                  <Image 
                    src={defaultImages[index]} 
                    alt={item.name}
