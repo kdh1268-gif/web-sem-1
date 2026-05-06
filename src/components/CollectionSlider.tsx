@@ -31,14 +31,14 @@ export default function CollectionSlider() {
         <div className="w-[1px] h-12 bg-gold-dark/30 mx-auto mt-6"></div>
       </div>
       
-      {/* Scrollable Container */}
+      {/* Scrollable Container (Desktop) / Vertical Stack (Mobile) */}
       <div 
         ref={sliderRef}
-        className="w-full overflow-x-auto flex gap-8 md:gap-16 px-[10vw] md:px-[30vw] pb-12 snap-x snap-mandatory scrollbar-hide cursor-grab active:cursor-grabbing"
+        className="w-full flex flex-col md:flex-row md:overflow-x-auto gap-16 md:gap-16 px-6 md:px-[30vw] pb-12 md:snap-x md:snap-mandatory scrollbar-hide md:cursor-grab md:active:cursor-grabbing items-center md:items-stretch"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {t.items.map((item, index) => (
-          <div key={index} className="snap-center shrink-0 w-[65vw] md:w-[30vw] max-w-[400px] flex flex-col items-center group">
+          <div key={index} className="md:snap-center shrink-0 w-full md:w-[30vw] max-w-[400px] flex flex-col items-center group">
             <div className="relative w-full aspect-[4/5] md:aspect-[3/4] bg-[#fdfdfd] overflow-hidden mb-6 md:mb-8 flex items-center justify-center transition-transform duration-700 group-hover:-translate-y-4 shadow-sm group-hover:shadow-xl group-hover:shadow-gold-dark/10">
               {/* Product Image Placeholder - Replace with actual bottle images */}
               <div className="w-[75%] h-[80%] relative z-10 transition-transform duration-700 group-hover:scale-105">
