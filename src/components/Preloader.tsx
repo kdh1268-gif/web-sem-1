@@ -27,12 +27,14 @@ export default function Preloader() {
 
     let loadedCount = 0;
     
+    const PRELOAD_COUNT = 15; // 초기 로딩 속도 향상을 위해 처음 15장만 선탑재
+    
     const incrementLoad = () => {
       loadedCount++;
-      setProgress((loadedCount / FRAME_COUNT) * 100);
+      setProgress((loadedCount / PRELOAD_COUNT) * 100);
     };
 
-    for (let i = 1; i <= FRAME_COUNT; i++) {
+    for (let i = 1; i <= PRELOAD_COUNT; i++) {
       const img = new window.Image();
       img.src = `/frames/perfume_${i.toString().padStart(3, '0')}.png`;
       img.onload = incrementLoad;
