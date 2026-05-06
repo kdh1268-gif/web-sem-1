@@ -8,8 +8,7 @@ import { translations } from '@/locales/translations';
 const defaultImages = [
   "/images/perfume-1_rmbg.png",
   "/images/perfume-2_rmbg.png",
-  "/images/perfume-3_rmbg.png",
-  "/images/perfume-4.png"
+  "/images/perfume-3_rmbg.png"
 ];
 
 export default function CollectionSlider() {

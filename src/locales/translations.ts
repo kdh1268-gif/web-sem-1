@@ -28,8 +28,7 @@ export const translations = {
       items: [
         { name: "Luminance", notes: "Bergamot, White Tea" },
         { name: "Midnight Lunel", notes: "Oud, Black Pepper" },
-        { name: "Velvet Rose", notes: "Damascus Rose, Vanilla" },
-        { name: "Silent Wood", notes: "Sandalwood, Cedar" }
+        { name: "Velvet Rose", notes: "Damascus Rose, Vanilla" }
       ]
     },
     bespoke: {
@@ -73,8 +72,7 @@ export const translations = {
       items: [
         { name: "Luminance", notes: "Bergamot, White Tea" },
         { name: "Midnight Lunel", notes: "Oud, Black Pepper" },
-        { name: "Velvet Rose", notes: "Damascus Rose, Vanilla" },
-        { name: "Silent Wood", notes: "Sandalwood, Cedar" }
+        { name: "Velvet Rose", notes: "Damascus Rose, Vanilla" }
       ]
     },
     bespoke: {
@@ -118,8 +116,7 @@ export const translations = {
       items: [
         { name: "Luminance", notes: "Bergamot, White Tea" },
         { name: "Midnight Lunel", notes: "Oud, Black Pepper" },
-        { name: "Velvet Rose", notes: "Damascus Rose, Vanilla" },
-        { name: "Silent Wood", notes: "Sandalwood, Cedar" }
+        { name: "Velvet Rose", notes: "Damascus Rose, Vanilla" }
       ]
     },
     bespoke: {
