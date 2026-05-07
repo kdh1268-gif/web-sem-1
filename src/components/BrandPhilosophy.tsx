@@ -14,20 +14,19 @@ export default function BrandPhilosophy() {
     if (!sectionRef.current || !textRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Simple text reveal animation
       const lines = gsap.utils.toArray('.reveal-line');
       
       gsap.fromTo(lines, 
-        { y: 50, opacity: 0 },
+        { y: 30, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 1.5,
-          stagger: 0.2,
+          duration: 0.8, // 스피드업: 1.5 -> 0.8
+          stagger: 0.1,  // 딜레이 감소: 0.2 -> 0.1
           ease: "power3.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 60%",
+            start: "top 75%", // 더 일찍 시작되도록 60% -> 75%
           }
         }
       );
@@ -72,7 +71,7 @@ export default function BrandPhilosophy() {
       <div className="w-full md:w-1/2 h-[50vh] md:h-screen relative order-1 md:order-2">
         <video 
           src="/videos/sec-vi.mp4" 
-          className="w-full h-full object-cover reveal-line"
+          className="w-full h-full object-cover"
           autoPlay 
           loop 
           muted 
