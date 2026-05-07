@@ -13,6 +13,7 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import { useStore } from '@/store/useStore';
 import { translations } from '@/locales/translations';
+import SideNavigation from '@/components/SideNavigation';
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -78,7 +79,9 @@ export default function Home() {
   }, []);
 
   return (
-    <div ref={mainRef} className="w-full bg-transparent">
+    <div ref={mainRef} className="w-full bg-transparent relative">
+      <SideNavigation />
+      
       <main id="main-scroll-container" className="relative w-full h-[calc(4000px+100vh)]">
         <Preloader />
 
@@ -135,11 +138,11 @@ export default function Home() {
         </div>
       </main>
 
-      <BrandPhilosophy />
-      <ScentArchitecture />
-      <CollectionSlider />
-      <BespokeExperience />
-      <SensoryBoutique />
+      <div id="philosophy"><BrandPhilosophy /></div>
+      <div id="architecture"><ScentArchitecture /></div>
+      <div id="collection"><CollectionSlider /></div>
+      <div id="bespoke"><BespokeExperience /></div>
+      <div id="boutique"><SensoryBoutique /></div>
       <Footer />
     </div>
   );

@@ -14,13 +14,7 @@ export default function ImageSequence() {
     if (!context) return;
 
     // Load images
-    const images: HTMLImageElement[] = [];
-    for (let i = 1; i <= FRAME_COUNT; i++) {
-      const img = new Image();
-      img.src = `/frames/perfume_${i.toString().padStart(3, '0')}.avif`;
-      images.push(img);
-    }
-
+    const images: (HTMLImageElement | null)[] = new Array(FRAME_COUNT).fill(null);
     const imageSeq = { frame: 0 };
 
     const render = () => {
@@ -45,7 +39,37 @@ export default function ImageSequence() {
       }
     };
 
-    images[0].onload = render;
+    const loadImages = async () => {
+      const loadFrame = (index: number) => {
+        return new Promise<void>((resolve) => {
+          const img = new Image();
+          img.src = `/frames/perfume_${(index + 1).toString().padStart(3, '0')}.avif`;
+          img.onload = () => {
+            images[index] = img;
+            if (index === 0) render(); // Render first frame immediately
+            resolve();
+          };
+          img.onerror = () => resolve(); // Proceed even if an image fails
+        });
+      };
+
+      // Load first frame ASAP so user sees something
+      await loadFrame(0);
+      
+      // Load the rest in small batches to prevent Dev Server / Browser choking
+      const BATCH_SIZE = 4;
+      for (let i = 1; i < FRAME_COUNT; i += BATCH_SIZE) {
+        const batch = [];
+        for (let j = i; j < Math.min(i + BATCH_SIZE, FRAME_COUNT); j++) {
+          batch.push(loadFrame(j));
+        }
+        await Promise.all(batch);
+        // Tiny pause to let Next.js dev server breathe
+        await new Promise(r => setTimeout(r, 20)); 
+      }
+    };
+
+    loadImages();
 
     const ctx = gsap.context(() => {
       gsap.to(imageSeq, {
