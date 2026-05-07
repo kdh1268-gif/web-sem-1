@@ -31,6 +31,13 @@ export default function ScentArchitecture() {
           trigger: sectionRef.current,
           pin: true,
           scrub: 1,
+          snap: {
+            snapTo: 1 / (sections.length - 1),
+            duration: { min: 0.4, max: 0.6 },
+            delay: 0,
+            directional: true,
+            ease: "power1.inOut"
+          },
           end: () => "+=" + wrapperRef.current!.offsetWidth,
         }
       });
@@ -64,9 +71,9 @@ export default function ScentArchitecture() {
         <h3 className="font-sans text-xs tracking-[0.4em] uppercase text-gold-dark opacity-80">{t.sectionTitle}</h3>
       </div>
       
-      <div ref={wrapperRef} className="flex h-full w-[300vw]">
+      <div ref={wrapperRef} className="flex h-full w-[300%]">
         {t.notes.map((note, index) => (
-          <div key={index} className="architecture-panel flex-shrink-0 w-screen h-full flex flex-col md:flex-row items-center relative">
+          <div key={index} className="architecture-panel flex-shrink-0 w-1/3 h-full flex flex-col md:flex-row items-center relative overflow-hidden">
             
             {/* Elegant large image with parallax container */}
             <div className="absolute right-0 w-full md:w-3/5 h-full overflow-hidden z-0">
