@@ -62,11 +62,11 @@ export default function SideNavigation() {
   };
 
   return (
-    <div className="fixed top-1/2 left-4 md:left-12 -translate-y-1/2 z-[100] flex flex-col items-center pointer-events-none">
+    <div className="fixed bottom-8 md:bottom-12 left-4 md:left-12 z-[100] flex flex-col items-center pointer-events-none">
       {/* Background Line */}
-      <div className="absolute top-0 bottom-0 w-[1px] bg-gold-dark/20 rounded-full left-[3.5px]" />
+      <div className="absolute top-0 bottom-0 w-[1px] bg-gold-dark/20 rounded-full left-[2.5px]" />
       
-      <div className="flex flex-col gap-6 md:gap-8 relative pointer-events-auto py-4">
+      <div className="flex flex-col gap-4 md:gap-5 relative pointer-events-auto py-4">
         {navItems.map((item) => {
           const isActive = activeSection === item.id;
           return (
@@ -77,14 +77,14 @@ export default function SideNavigation() {
             >
               {/* Dot */}
               <div 
-                className={`w-2 h-2 rounded-full border border-gold-dark transition-all duration-300 relative z-10 ${
+                className={`w-1.5 h-1.5 rounded-full border border-gold-dark transition-all duration-300 relative z-10 ${
                   isActive ? 'bg-gold-dark scale-125' : 'bg-[#fdfdfd] hover:bg-gold-dark/50'
                 }`}
               />
               
               {/* Label */}
               <span 
-                className={`absolute left-6 font-sans text-[9px] md:text-[10px] tracking-widest whitespace-nowrap transition-all duration-300 ${
+                className={`absolute left-4 font-sans text-[8px] md:text-[9px] tracking-widest whitespace-nowrap transition-all duration-300 ${
                   isActive ? 'opacity-100 text-gold-dark translate-x-0' : 'opacity-0 -translate-x-2 text-foreground/50 group-hover:opacity-100 group-hover:translate-x-0'
                 }`}
               >
