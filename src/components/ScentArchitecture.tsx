@@ -49,7 +49,15 @@ export default function ScentArchitecture() {
               xPercent: -100 * currentIndex,
               duration: 1.5,
               ease: "power3.inOut",
-              overwrite: "auto"
+              overwrite: "auto",
+              onStart: () => {
+                // 슬라이드 애니메이션이 진행되는 1.5초 동안 유저가 스크롤을 막 굴려도 무시하도록 Lenis 스크롤 정지
+                if ((window as any).lenis) (window as any).lenis.stop();
+              },
+              onComplete: () => {
+                // 슬라이드가 완전히 끝나면 다시 스크롤 허용
+                if ((window as any).lenis) (window as any).lenis.start();
+              }
             });
 
             // 이미지 패럴랙스 애니메이션 (containerAnimation 의존성 제거로 크래시 방지)
