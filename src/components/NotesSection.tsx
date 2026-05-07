@@ -19,6 +19,7 @@ export default function NotesSection() {
 
     const ctx = gsap.context(() => {
       const sections = gsap.utils.toArray('.note-panel');
+      const isMobile = window.innerWidth < 768;
       
       gsap.to(sections, {
         xPercent: -100 * (sections.length - 1),
@@ -26,8 +27,15 @@ export default function NotesSection() {
         scrollTrigger: {
           trigger: sectionRef.current,
           pin: true,
-          scrub: 1,
-          end: () => "+=" + wrapperRef.current!.offsetWidth,
+          scrub: isMobile ? 1.5 : 1, // A bit of drag on mobile before snap
+          snap: isMobile ? {
+            snapTo: 1 / (sections.length - 1), // Snap perfectly to each panel
+            duration: { min: 0.4, max: 0.6 },
+            delay: 0, // Trigger snap immediately after scrolling stops
+            directional: true, // Forces snapping to the next item even with a tiny scroll
+            ease: "power3.inOut"
+          } : undefined, // Desktop remains smooth scrub without strict snapping
+          end: () => "+=" + (isMobile ? window.innerHeight * 1.5 : wrapperRef.current!.offsetWidth),
         }
       });
     }, sectionRef);
