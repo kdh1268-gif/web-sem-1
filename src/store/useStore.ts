@@ -11,6 +11,8 @@ interface AppState {
   setCurrentSection: (section: number) => void;
   language: Language;
   setLanguage: (lang: Language) => void;
+  sequenceProgress: number;
+  setSequenceProgress: (progress: number) => void;
 }
 
 export const useStore = create<AppState>((set) => ({
@@ -22,4 +24,6 @@ export const useStore = create<AppState>((set) => ({
   setCurrentSection: (section) => set({ currentSection: section }),
   language: 'ko',
   setLanguage: (lang) => set({ language: lang }),
+  sequenceProgress: 0,
+  setSequenceProgress: (progress) => set({ sequenceProgress: progress }),
 }));

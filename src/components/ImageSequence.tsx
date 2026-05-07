@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-
+import { useStore } from '@/store/useStore';
 const FRAME_COUNT = 193;
 
 export default function ImageSequence() {
@@ -40,6 +40,9 @@ export default function ImageSequence() {
     };
 
     const loadImages = async () => {
+      let loadedCount = 0;
+      const setSequenceProgress = useStore.getState().setSequenceProgress;
+      
       const loadFrame = (index: number) => {
         return new Promise<void>((resolve) => {
           const img = new Image();
@@ -50,9 +53,15 @@ export default function ImageSequence() {
             if (index === 0 || Math.abs(index - Math.round(imageSeq.frame)) <= 2) {
                render();
             }
+            loadedCount++;
+            setSequenceProgress((loadedCount / FRAME_COUNT) * 100);
             resolve();
           };
-          img.onerror = () => resolve(); // Proceed even if an image fails
+          img.onerror = () => {
+            loadedCount++;
+            setSequenceProgress((loadedCount / FRAME_COUNT) * 100);
+            resolve(); // Proceed even if an image fails
+          };
         });
       };
 

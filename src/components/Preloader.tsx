@@ -1,13 +1,11 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import Image from 'next/image';
 import { useStore } from '@/store/useStore';
 
-const FRAME_COUNT = 193;
-
 export default function Preloader() {
-  const [progress, setProgress] = useState(0);
+  const sequenceProgress = useStore((state) => state.sequenceProgress);
   const setLoaded = useStore((state) => state.setLoaded);
   const isLoaded = useStore((state) => state.isLoaded);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -24,34 +22,18 @@ export default function Preloader() {
       }
     };
     stopLenis();
-
-    let loadedCount = 0;
-    
-    const PRELOAD_COUNT = 15; // 초기 로딩 속도 향상을 위해 처음 15장만 선탑재
-    
-    const incrementLoad = () => {
-      loadedCount++;
-      setProgress((loadedCount / PRELOAD_COUNT) * 100);
-    };
-
-    for (let i = 1; i <= PRELOAD_COUNT; i++) {
-      const img = new window.Image();
-      img.src = `/frames/perfume_${i.toString().padStart(3, '0')}.avif`;
-      img.onload = incrementLoad;
-      img.onerror = incrementLoad; // Move forward even on error
-    }
   }, []);
 
   useEffect(() => {
     if (barRef.current) {
       gsap.to(barRef.current, {
-        scaleX: progress / 100,
+        scaleX: sequenceProgress / 100,
         duration: 0.2,
         ease: 'power2.out',
       });
     }
 
-    if (progress >= 100 && !isLoaded) {
+    if (sequenceProgress >= 100 && !isLoaded) {
       setTimeout(() => {
         gsap.to(containerRef.current, {
           opacity: 0,
@@ -71,7 +53,7 @@ export default function Preloader() {
         });
       }, 800);
     }
-  }, [progress, isLoaded, setLoaded]);
+  }, [sequenceProgress, isLoaded, setLoaded]);
 
   return (
     <div
@@ -93,7 +75,7 @@ export default function Preloader() {
         />
       </div>
       <p className="mt-4 text-xs tracking-widest font-sans font-light text-foreground/50">
-        {Math.round(progress)}%
+        {Math.round(sequenceProgress)}%
       </p>
     </div>
   );
