@@ -27,14 +27,14 @@ export default function NotesSection() {
         scrollTrigger: {
           trigger: sectionRef.current,
           pin: true,
-          scrub: isMobile ? 1.5 : 1, // A bit of drag on mobile before snap
-          snap: isMobile ? {
-            snapTo: 1 / (sections.length - 1), // Snap perfectly to each panel
+          scrub: 1, 
+          snap: {
+            snapTo: 1 / (sections.length - 1),
             duration: { min: 0.4, max: 0.6 },
-            delay: 0, // Trigger snap immediately after scrolling stops
-            directional: true, // Forces snapping to the next item even with a tiny scroll
+            delay: 0,
+            directional: true,
             ease: "power3.inOut"
-          } : undefined, // Desktop remains smooth scrub without strict snapping
+          },
           end: () => "+=" + (isMobile ? window.innerHeight * 1.5 : wrapperRef.current!.offsetWidth),
         }
       });
@@ -49,9 +49,9 @@ export default function NotesSection() {
         <h3 className="font-sans text-xs tracking-[0.4em] uppercase text-gold-dark opacity-80">The Notes</h3>
       </div>
       
-      <div ref={wrapperRef} className="flex h-full w-[300vw]">
+      <div ref={wrapperRef} className="flex h-full w-[300%]">
         {notes.map((note, index) => (
-          <div key={index} className="note-panel flex-shrink-0 w-screen h-full flex flex-col md:flex-row justify-center items-center px-6 md:px-24 gap-12 md:gap-24 relative">
+          <div key={index} className="note-panel flex-shrink-0 w-1/3 h-full flex flex-col md:flex-row justify-center items-center px-6 md:px-24 gap-12 md:gap-24 relative overflow-hidden">
             
             {/* Image Container with elegant frame */}
             <div className="relative w-[80vw] md:w-[40vw] max-w-[500px] aspect-[4/5] overflow-hidden group">
