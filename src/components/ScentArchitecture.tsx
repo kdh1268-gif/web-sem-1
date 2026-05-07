@@ -23,22 +23,37 @@ export default function ScentArchitecture() {
     const ctx = gsap.context(() => {
       const sections = gsap.utils.toArray('.architecture-panel');
       
-      gsap.to(sections, {
+      // 가로 스크롤을 담당할 메인 트윈 (일시정지 상태)
+      const scrollTween = gsap.to(sections, {
         xPercent: -100 * (sections.length - 1),
         ease: "none",
-        scrollTrigger: {
-          id: "architecture-scroll",
-          trigger: sectionRef.current,
-          pin: true,
-          scrub: 1,
-          snap: {
-            snapTo: 1 / (sections.length - 1),
-            duration: { min: 0.4, max: 0.6 },
-            delay: 0,
-            directional: true,
-            ease: "power1.inOut"
-          },
-          end: () => "+=" + wrapperRef.current!.offsetWidth,
+        paused: true
+      });
+
+      let currentIndex = 0;
+
+      // 스크롤트리거는 단순히 스크롤 구간을 잡고, 어느 슬라이드를 보여줄지(Index)만 결정합니다.
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        pin: true,
+        start: "top top",
+        end: "+=3000", // 충분히 여유 있는 스크롤 구간
+        onUpdate: (self) => {
+          // 스크롤 진행도에 따라 보여줄 타겟 인덱스 계산 (0, 1, 2 중 하나로 딱 떨어짐)
+          const targetIndex = Math.round(self.progress * (sections.length - 1));
+          
+          if (targetIndex !== currentIndex) {
+            currentIndex = targetIndex;
+            
+            // 인덱스가 바뀔 때만 메인 트윈의 진행도(progress)를 부드럽고 묵직하게 애니메이션!
+            // 이렇게 하면 사용자가 스크롤한 만큼 찔끔 움직이는 게 아니라, 한 슬라이드씩 확실하게 넘어갑니다.
+            gsap.to(scrollTween, {
+              progress: targetIndex / (sections.length - 1),
+              duration: 1.5, // 무게감 있는 전환 속도
+              ease: "power3.inOut",
+              overwrite: "auto"
+            });
+          }
         }
       });
       
@@ -51,7 +66,7 @@ export default function ScentArchitecture() {
             ease: "none",
             scrollTrigger: {
               trigger: panel,
-              containerAnimation: gsap.getById("architecture-scroll") || undefined, // Wait, horizontal container animation needs id
+              containerAnimation: scrollTween, // ID 대신 생성한 트윈 변수를 직접 연결
               start: "left right",
               end: "right left",
               scrub: true,

@@ -19,23 +19,34 @@ export default function NotesSection() {
 
     const ctx = gsap.context(() => {
       const sections = gsap.utils.toArray('.note-panel');
-      const isMobile = window.innerWidth < 768;
       
-      gsap.to(sections, {
+      // 가로 스크롤을 담당할 메인 트윈 (일시정지 상태)
+      const scrollTween = gsap.to(sections, {
         xPercent: -100 * (sections.length - 1),
         ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          pin: true,
-          scrub: 1, 
-          snap: {
-            snapTo: 1 / (sections.length - 1),
-            duration: { min: 0.4, max: 0.6 },
-            delay: 0,
-            directional: true,
-            ease: "power3.inOut"
-          },
-          end: () => "+=" + (isMobile ? window.innerHeight * 1.5 : wrapperRef.current!.offsetWidth),
+        paused: true
+      });
+
+      let currentIndex = 0;
+
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        pin: true,
+        start: "top top",
+        end: "+=3000",
+        onUpdate: (self) => {
+          const targetIndex = Math.round(self.progress * (sections.length - 1));
+          
+          if (targetIndex !== currentIndex) {
+            currentIndex = targetIndex;
+            
+            gsap.to(scrollTween, {
+              progress: targetIndex / (sections.length - 1),
+              duration: 1.5, // 무게감 있는 전환 속도
+              ease: "power3.inOut",
+              overwrite: "auto"
+            });
+          }
         }
       });
     }, sectionRef);
