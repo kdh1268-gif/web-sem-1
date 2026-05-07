@@ -19,14 +19,6 @@ export default function NotesSection() {
 
     const ctx = gsap.context(() => {
       const sections = gsap.utils.toArray('.note-panel');
-      
-      // 가로 스크롤을 담당할 메인 트윈 (일시정지 상태)
-      const scrollTween = gsap.to(sections, {
-        xPercent: -100 * (sections.length - 1),
-        ease: "none",
-        paused: true
-      });
-
       let currentIndex = 0;
 
       ScrollTrigger.create({
@@ -40,8 +32,8 @@ export default function NotesSection() {
           if (targetIndex !== currentIndex) {
             currentIndex = targetIndex;
             
-            gsap.to(scrollTween, {
-              progress: targetIndex / (sections.length - 1),
+            gsap.to(sections, {
+              xPercent: -100 * currentIndex,
               duration: 1.5, // 무게감 있는 전환 속도
               ease: "power3.inOut",
               overwrite: "auto"

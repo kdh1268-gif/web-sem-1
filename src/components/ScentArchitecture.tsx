@@ -22,15 +22,13 @@ export default function ScentArchitecture() {
 
     const ctx = gsap.context(() => {
       const sections = gsap.utils.toArray('.architecture-panel');
-      
-      // 가로 스크롤을 담당할 메인 트윈 (일시정지 상태)
-      const scrollTween = gsap.to(sections, {
-        xPercent: -100 * (sections.length - 1),
-        ease: "none",
-        paused: true
-      });
-
+      const images = gsap.utils.toArray('.parallax-img');
       let currentIndex = 0;
+
+      // 초기 이미지 패럴랙스 위치 설정
+      gsap.set(images, {
+        xPercent: (i) => i * 15
+      });
 
       // 스크롤트리거는 단순히 스크롤 구간을 잡고, 어느 슬라이드를 보여줄지(Index)만 결정합니다.
       ScrollTrigger.create({
@@ -45,33 +43,22 @@ export default function ScentArchitecture() {
           if (targetIndex !== currentIndex) {
             currentIndex = targetIndex;
             
-            // 인덱스가 바뀔 때만 메인 트윈의 진행도(progress)를 부드럽고 묵직하게 애니메이션!
-            // 이렇게 하면 사용자가 스크롤한 만큼 찔끔 움직이는 게 아니라, 한 슬라이드씩 확실하게 넘어갑니다.
-            gsap.to(scrollTween, {
-              progress: targetIndex / (sections.length - 1),
-              duration: 1.5, // 무게감 있는 전환 속도
+            // 패널 슬라이드 애니메이션
+            gsap.to(sections, {
+              xPercent: -100 * currentIndex,
+              duration: 1.5,
+              ease: "power3.inOut",
+              overwrite: "auto"
+            });
+
+            // 이미지 패럴랙스 애니메이션 (containerAnimation 의존성 제거로 크래시 방지)
+            gsap.to(images, {
+              xPercent: (i) => (i - currentIndex) * 15,
+              duration: 1.5,
               ease: "power3.inOut",
               overwrite: "auto"
             });
           }
-        }
-      });
-      
-      // Parallax effect for images inside panels
-      sections.forEach((panel: any) => {
-        const img = panel.querySelector('.parallax-img');
-        if (img) {
-          gsap.to(img, {
-            xPercent: 20,
-            ease: "none",
-            scrollTrigger: {
-              trigger: panel,
-              containerAnimation: scrollTween, // ID 대신 생성한 트윈 변수를 직접 연결
-              start: "left right",
-              end: "right left",
-              scrub: true,
-            }
-          });
         }
       });
       
