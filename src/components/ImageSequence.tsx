@@ -46,7 +46,10 @@ export default function ImageSequence() {
           img.src = `/frames/perfume_${(index + 1).toString().padStart(3, '0')}.avif`;
           img.onload = () => {
             images[index] = img;
-            if (index === 0) render(); // Render first frame immediately
+            // 만약 사용자가 이미 이 프레임으로 스크롤했다면, 즉시 렌더링해서 멈춰보이는 현상 방지
+            if (index === 0 || Math.abs(index - Math.round(imageSeq.frame)) <= 2) {
+               render();
+            }
             resolve();
           };
           img.onerror = () => resolve(); // Proceed even if an image fails
