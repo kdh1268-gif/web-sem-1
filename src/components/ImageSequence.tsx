@@ -36,8 +36,9 @@ export default function ImageSequence() {
         
         const isDesktop = canvas.width >= 768;
         const shiftFactor = isDesktop ? 0.75 : 0.5;
+        const verticalShift = isDesktop ? 0 : canvas.height * 0.15; // Push down 15% on mobile
         const centerShift_x = (canvas.width * shiftFactor) - (img.width * ratio) / 2;
-        const centerShift_y = (canvas.height - img.height * ratio) / 2;  
+        const centerShift_y = (canvas.height - img.height * ratio) / 2 + verticalShift;  
 
         context.drawImage(img, 0, 0, img.width, img.height,
            centerShift_x, centerShift_y, img.width * ratio, img.height * ratio);
