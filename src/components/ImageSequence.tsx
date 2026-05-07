@@ -79,8 +79,8 @@ export default function ImageSequence() {
         scrollTrigger: {
           trigger: "#main-scroll-container",
           start: "top top",
-          end: "+=4000",
-          scrub: 1.5,
+          end: () => window.innerWidth < 768 ? "+=6000" : "+=4000",
+          scrub: 2, // Slightly higher scrub smooths out fast swipes on mobile
         },
         onUpdate: render,
       });

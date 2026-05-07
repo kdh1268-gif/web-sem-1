@@ -17,7 +17,8 @@ export default function Providers({ children }: { children: ReactNode }) {
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
-      touchMultiplier: 2,
+      touchMultiplier: 1,
+      syncTouch: true, // Enables Lenis smooth scrolling on touch to control momentum
     });
 
     // Expose lenis globally to allow pausing (e.g. during preloader)
